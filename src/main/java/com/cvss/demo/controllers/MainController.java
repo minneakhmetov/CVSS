@@ -1,8 +1,6 @@
 package com.cvss.demo.controllers;
 
 import com.cvss.demo.lib.CvssV2;
-import com.cvss.demo.lib.Score;
-import com.cvss.demo.model.RequestModel;
 import com.cvss.demo.model.ResponseModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -49,7 +47,13 @@ public class MainController {
             @RequestParam("availability") String a,
             @RequestParam("exploitability") String e,
             @RequestParam("remediationLevel") String rl,
-            @RequestParam("reportConfidence") String rc
+            @RequestParam("reportConfidence") String rc,
+            @RequestParam("collateralDamagePotential") String cdp,
+            @RequestParam("targetDistribution") String td,
+            @RequestParam("confidentialityRequirement") String cr,
+            @RequestParam("integrityRequirement ") String ir,
+            @RequestParam("availabilityRequirement") String ar
+
     ){
         return mapper.map(new CvssV2()
                 .attackVector(mapper.map(av, CvssV2.AttackVector.class))
@@ -61,6 +65,12 @@ public class MainController {
                 .exploitability(mapper.map(e, CvssV2.Exploitability.class))
                 .remediationLevel(mapper.map(rl, CvssV2.RemediationLevel.class))
                 .reportConfidence(mapper.map(rc, CvssV2.ReportConfidence.class))
-                .calculateScore(), ResponseModel.class);
+                .collateralDamagePotential(mapper.map(cdp, CvssV2.CollateralDamagePotential.class))
+                .targetDistribution(mapper.map(td, CvssV2.TargetDistribution.class))
+                .confidentialityRequirement(mapper.map(cr, CvssV2.CRIRAR.class))
+                .integrityRequirement(mapper.map(ir, CvssV2.CRIRAR.class))
+                .availabilityRequirement(mapper.map(ar, CvssV2.CRIRAR.class))
+                .calculateScore(),
+                ResponseModel.class);
     }
 }

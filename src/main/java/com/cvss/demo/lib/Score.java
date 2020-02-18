@@ -1,21 +1,28 @@
 package com.cvss.demo.lib;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class Score {
 
     private double baseScore;
     private double impactSubScore;
     private double exploitabilitySubScore;
     private double temporalScore;
+    @Getter
+    @Setter
+    private double environmentalScore;
 
-    public Score(double baseScore, double impactSubScore, double exploitabilitySubScore) {
-        this(baseScore, impactSubScore, exploitabilitySubScore, -1);
+    public Score(double baseScore, double impactSubScore, double exploitabilitySubScore, double environmentalScore) {
+        this(baseScore, impactSubScore, exploitabilitySubScore, -1, environmentalScore);
     }
 
-    public Score(double baseScore, double impactSubScore, double exploitabilitySubScore, double temporalScore) {
+    public Score(double baseScore, double impactSubScore, double exploitabilitySubScore, double temporalScore, double environmentalScore) {
         this.baseScore = baseScore;
         this.impactSubScore = impactSubScore;
         this.exploitabilitySubScore = exploitabilitySubScore;
         this.temporalScore = temporalScore;
+        this.environmentalScore = environmentalScore;
     }
 
     /**
@@ -49,4 +56,6 @@ public class Score {
     public double getTemporalScore() {
         return temporalScore;
     }
+
+
 }

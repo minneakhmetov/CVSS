@@ -8,5 +8,6 @@ public class ResponseModel {
     private Double baseScore;
     private Double impactSubScore;
     private Double exploitabilitySubScore;
+    private Double environmentalScore;
 
 }

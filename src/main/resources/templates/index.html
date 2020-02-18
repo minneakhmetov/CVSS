@@ -24,7 +24,7 @@
     <script src="/js/jquery-3.4.1.js"></script>
     <script>
 
-        let av, ac, au, c, i, a, e, rl, rc;
+        let av, ac, au, c, i, a, e, rl, rc, cdp, rd, cr, ir, ar;
 
         function avfunc(item) {
             av = item;
@@ -58,6 +58,26 @@
             rl = item;
         }
 
+        function cdpfunc(item) {
+            cdp = item;
+        }
+
+        function tdfunc(item) {
+            td = item;
+        }
+
+        function crfunc(item) {
+            cr = item;
+        }
+
+        function arfunc(item) {
+            ar = item;
+        }
+
+        function irfunc(item) {
+            ir = item;
+        }
+
         function rcfunc(item) {
             rc = item;
         }
@@ -76,13 +96,19 @@
                     "exploitability": e,
                     "remediationLevel": rl,
                     "reportConfidence": rc,
+                    "collateralDamagePotential": cdp,
+                    "targetDistribution": td,
+                    "confidentialityRequirement": cr,
+                    "integrityRequirement ": ir,
+                    "availabilityRequirement": ar
                 }
             }).done(function (data) {
                 let text = '<h3>Результат</h3>' +
                     '<div class="alert alert-success" role="alert">\n' +
                     'BaseScore: ' + data.baseScore + '<br>' +
                     'ImpactSubScore: ' + data.impactSubScore + '<br>' +
-                    'ExploitabilitySubScore: ' + data.exploitabilitySubScore +
+                    'ExploitabilitySubScore: ' + data.exploitabilitySubScore + '<br>' +
+                    'EnvironmentalScore: ' + data.environmentalScore +
                     '</div>';
 
                 document.getElementById("insert").innerHTML = text;
@@ -360,6 +386,197 @@
 
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-auto">
+            <h3>Вероятность нанесения косвенного ущерба<span class="badge badge-secondary">CDP</span></h3>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="cdpfunc('NOT_DEFINED')" class="custom-control-input"
+                       id="defaultGroupExample33"
+                       name="cdp">
+                <label class="custom-control-label" for="defaultGroupExample33">Не определено</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="cdpfunc('NONE')" class="custom-control-input"
+                       id="defaultGroupExample34"
+                       name="cdp">
+                <label class="custom-control-label" for="defaultGroupExample34">Отсутствует</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="cdpfunc('LOW')" class="custom-control-input"
+                       id="defaultGroupExample35"
+                       name="cdp">
+                <label class="custom-control-label" for="defaultGroupExample35">Низкая</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="cdpfunc('MEDIUM_LOW')" class="custom-control-input"
+                       id="defaultGroupExample36"
+                       name="cdp">
+                <label class="custom-control-label" for="defaultGroupExample36">Средняя</label>
+            </div>
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="cdpfunc('MEDIUM_HIGH')" class="custom-control-input"
+                       id="defaultGroupExample37"
+                       name="cdp">
+                <label class="custom-control-label" for="defaultGroupExample37">Повышенная</label>
+            </div>
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="cdpfunc('HIGH')" class="custom-control-input"
+                       id="defaultGroupExample38"
+                       name="cdp">
+                <label class="custom-control-label" for="defaultGroupExample38">Высокая</label>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            <h3>Плотность целей<span class="badge badge-secondary">TD</span></h3>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="tdfunc('NOT_DEFINED')" class="custom-control-input"
+                       id="defaultGroupExample39"
+                       name="td">
+                <label class="custom-control-label" for="defaultGroupExample39">Не определено</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="tdfunc('NONE')" class="custom-control-input"
+                       id="defaultGroupExample40"
+                       name="td">
+                <label class="custom-control-label" for="defaultGroupExample40">Отсутствует</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="tdfunc('LOW')" class="custom-control-input"
+                       id="defaultGroupExample41"
+                       name="td">
+                <label class="custom-control-label" for="defaultGroupExample41">Низкая</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="tdfunc('MEDIUM')" class="custom-control-input"
+                       id="defaultGroupExample42"
+                       name="td">
+                <label class="custom-control-label" for="defaultGroupExample42">Средняя</label>
+            </div>
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="tdfunc('HIGH')" class="custom-control-input"
+                       id="defaultGroupExample44"
+                       name="td">
+                <label class="custom-control-label" for="defaultGroupExample44">Высокая</label>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-auto">
+            <h3>Требования к конфиденциальности<span class="badge badge-secondary">CR</span></h3>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="crfunc('NOT_DEFINED')" class="custom-control-input"
+                       id="defaultGroupExample45"
+                       name="cr">
+                <label class="custom-control-label" for="defaultGroupExample45">Не определено</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="crfunc('LOW')" class="custom-control-input"
+                       id="defaultGroupExample46"
+                       name="cr">
+                <label class="custom-control-label" for="defaultGroupExample46">Низкая</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="crfunc('MEDIUM')" class="custom-control-input"
+                       id="defaultGroupExample47"
+                       name="cr">
+                <label class="custom-control-label" for="defaultGroupExample47">Средняя</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="crfunc('HIGH')" class="custom-control-input"
+                       id="defaultGroupExample48"
+                       name="cr">
+                <label class="custom-control-label" for="defaultGroupExample48">Высокая</label>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            <h3>Требования к целостности<span class="badge badge-secondary">IR</span></h3>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="irfunc('NOT_DEFINED')" class="custom-control-input"
+                       id="defaultGroupExample49"
+                       name="ir">
+                <label class="custom-control-label" for="defaultGroupExample49">Не определено</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="irfunc('LOW')" class="custom-control-input"
+                       id="defaultGroupExample50"
+                       name="ir">
+                <label class="custom-control-label" for="defaultGroupExample50">Низкая</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="irfunc('MEDIUM')" class="custom-control-input"
+                       id="defaultGroupExample51"
+                       name="ir">
+                <label class="custom-control-label" for="defaultGroupExample51">Средняя</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="irfunc('HIGH')" class="custom-control-input"
+                       id="defaultGroupExample52"
+                       name="ir">
+                <label class="custom-control-label" for="defaultGroupExample52">Высокая</label>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            <h3>Требования к доступности<span class="badge badge-secondary">AR</span></h3>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="arfunc('NOT_DEFINED')" class="custom-control-input"
+                       id="defaultGroupExample53"
+                       name="ar">
+                <label class="custom-control-label" for="defaultGroupExample53">Не определено</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="arfunc('LOW')" class="custom-control-input"
+                       id="defaultGroupExample54"
+                       name="ar">
+                <label class="custom-control-label" for="defaultGroupExample54">Низкая</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="arfunc('MEDIUM')" class="custom-control-input"
+                       id="defaultGroupExample55"
+                       name="ar">
+                <label class="custom-control-label" for="defaultGroupExample55">Средняя</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="arfunc('HIGH')" class="custom-control-input"
+                       id="defaultGroupExample56"
+                       name="ar">
+                <label class="custom-control-label" for="defaultGroupExample56">Высокая</label>
+            </div>
+
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-auto" id="insert">
 
@@ -371,7 +588,6 @@
             <button type="button" class="btn btn-secondary" onclick="send()">Отправить</button>
         </div>
     </div>
-
 </div>
 </body>
 </html>
