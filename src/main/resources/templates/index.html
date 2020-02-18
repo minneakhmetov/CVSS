@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.13.0/css/mdb.min.css" rel="stylesheet">
+    <!-- JQuery -->
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.13.0/js/mdb.min.js"></script>
+    <script src="/js/jquery-3.4.1.js"></script>
+    <script>
+
+        let av, ac, au, c, i, a, e, rl, rc;
+
+        function avfunc(item) {
+            av = item;
+        }
+
+        function acfunc(item) {
+            ac = item;
+        }
+
+        function aufunc(item) {
+            au = item;
+        }
+
+        function cfunc(item) {
+            c = item;
+        }
+
+        function ifunc(item) {
+            i = item;
+        }
+
+        function afunc(item) {
+            a = item;
+        }
+
+        function efunc(item) {
+            e = item;
+        }
+
+        function rlfunc(item) {
+            rl = item;
+        }
+
+        function rcfunc(item) {
+            rc = item;
+        }
+
+        function send() {
+            $.ajax({
+                type: 'post',
+                url: '/calculate',
+                data: {
+                    "attackVector": av,
+                    "attackComplexity": ac,
+                    "authentication": au,
+                    "confidentiality": c,
+                    "integrity": i,
+                    "availability": a,
+                    "exploitability": e,
+                    "remediationLevel": rl,
+                    "reportConfidence": rc,
+                }
+            }).done(function (data) {
+                let text = '<h3>Результат</h3>' +
+                    '<div class="alert alert-success" role="alert">\n' +
+                    'BaseScore: ' + data.baseScore + '<br>' +
+                    'ImpactSubScore: ' + data.impactSubScore + '<br>' +
+                    'ExploitabilitySubScore: ' + data.exploitabilitySubScore +
+                    '</div>';
+
+                document.getElementById("insert").innerHTML = text;
+            }).fail(function () {
+                let text = '<div class="alert alert-danger" role="alert">\n' +
+                    'Неверные данные!' +
+                    '</div>';
+                document.getElementById("insert").innerHTML = text;
+            });
+        }
+
+    </script>
+</head>
+<body style="background-color: aqua">
+<div class="container">
+    <div class="row">
+        <div class="col-auto">
+            <h1>CVSS V2 Calculator</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-auto">
+
+            <h4>Выполнил: <b> Миннеахметов Разиль </b> <span class="badge badge-secondary">11-702</span></h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            <h3>Способ получения доступа<span class="badge badge-secondary">AV</span></h3>
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="avfunc('LOCAL')" class="custom-control-input" id="defaultGroupExample1"
+                       name="av">
+                <label class="custom-control-label" for="defaultGroupExample1">Локальный</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="avfunc('ADJACENT')" class="custom-control-input" id="defaultGroupExample2"
+                       name="av">
+                <label class="custom-control-label" for="defaultGroupExample2">Смежная сеть</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="avfunc('NETWORK')" class="custom-control-input" id="defaultGroupExample3"
+                       name="av">
+                <label class="custom-control-label" for="defaultGroupExample3">Сетевой</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            <h3>Сложность получения доступа<span class="badge badge-secondary">AC</span></h3>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="acfunc('HIGH')" class="custom-control-input" id="defaultGroupExample4"
+                       name="ac">
+                <label class="custom-control-label" for="defaultGroupExample4">Высокая</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="acfunc('MEDIUM')" class="custom-control-input" id="defaultGroupExample5"
+                       name="ac">
+                <label class="custom-control-label" for="defaultGroupExample5">Средняя</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="acfunc('LOW')" class="custom-control-input" id="defaultGroupExample6"
+                       name="ac">
+                <label class="custom-control-label" for="defaultGroupExample6">Низкая</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            <h3>Аутентификация<span class="badge badge-secondary">Au</span></h3>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="aufunc('MULTIPLE')" class="custom-control-input" id="defaultGroupExample7"
+                       name="au">
+                <label class="custom-control-label" for="defaultGroupExample7">Множественная</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="aufunc('SINGLE')" class="custom-control-input" id="defaultGroupExample8"
+                       name="au">
+                <label class="custom-control-label" for="defaultGroupExample8">Единсвенная</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="aufunc('NONE')" class="custom-control-input" id="defaultGroupExample9"
+                       name="au">
+                <label class="custom-control-label" for="defaultGroupExample9">Не требуется</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            <h3>Влияние на конфиденциальность<span class="badge badge-secondary">С</span></h3>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="cfunc('NONE')" class="custom-control-input" id="defaultGroupExample10"
+                       name="c">
+                <label class="custom-control-label" for="defaultGroupExample10">Не оказывает</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="cfunc('PARTIAL')" class="custom-control-input" id="defaultGroupExample11"
+                       name="c">
+                <label class="custom-control-label" for="defaultGroupExample11">Частичное</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="cfunc('COMPLETE')" class="custom-control-input" id="defaultGroupExample12"
+                       name="c">
+                <label class="custom-control-label" for="defaultGroupExample12">Полное</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            <h3>Влияние на целостность<span class="badge badge-secondary">I</span></h3>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="ifunc('NONE')" class="custom-control-input" id="defaultGroupExample13"
+                       name="i">
+                <label class="custom-control-label" for="defaultGroupExample13">Не оказывает</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="ifunc('PARTIAL')" class="custom-control-input" id="defaultGroupExample14"
+                       name="i">
+                <label class="custom-control-label" for="defaultGroupExample14">Частичное</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="ifunc('COMPLETE')" class="custom-control-input" id="defaultGroupExample15"
+                       name="i">
+                <label class="custom-control-label" for="defaultGroupExample15">Полное</label>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            <h3>Влияние на доступнось<span class="badge badge-secondary">A</span></h3>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="afunc('NONE')" class="custom-control-input" id="defaultGroupExample16"
+                       name="a">
+                <label class="custom-control-label" for="defaultGroupExample16">Не оказывает</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="afunc('PARTIAL')" class="custom-control-input" id="defaultGroupExample17"
+                       name="a">
+                <label class="custom-control-label" for="defaultGroupExample17">Частичное</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="afunc('COMPLETE')" class="custom-control-input" id="defaultGroupExample18"
+                       name="a">
+                <label class="custom-control-label" for="defaultGroupExample18">Полное</label>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            <h3>Возможость использования<span class="badge badge-secondary">E</span></h3>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="efunc('NOT_DEFINED')" class="custom-control-input"
+                       id="defaultGroupExample19"
+                       name="e">
+                <label class="custom-control-label" for="defaultGroupExample19">Не определено</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="efunc('POC')" class="custom-control-input" id="defaultGroupExample20"
+                       name="e">
+                <label class="custom-control-label" for="defaultGroupExample20">Теоретически</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="efunc('UNPROVEN')" class="custom-control-input" id="defaultGroupExample21"
+                       name="e">
+                <label class="custom-control-label" for="defaultGroupExample21">Есть концепция</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="efunc('FUNCTIONAL')" class="custom-control-input"
+                       id="defaultGroupExample22"
+                       name="e">
+                <label class="custom-control-label" for="defaultGroupExample22">Есть сценарий</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="efunc('HIGH')" class="custom-control-input" id="defaultGroupExample23"
+                       name="e">
+                <label class="custom-control-label" for="defaultGroupExample23">Высокая</label>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            <h3>Уровень исправления<span class="badge badge-secondary">RL</span></h3>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="rlfunc('NOT_DEFINED')" class="custom-control-input"
+                       id="defaultGroupExample24"
+                       name="rl">
+                <label class="custom-control-label" for="defaultGroupExample24">Не определено</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="rlfunc('OFFICIAL')" class="custom-control-input" id="defaultGroupExample25"
+                       name="rl">
+                <label class="custom-control-label" for="defaultGroupExample25">Официальное</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="rlfunc('TEMPORARY')" class="custom-control-input"
+                       id="defaultGroupExample26"
+                       name="rl">
+                <label class="custom-control-label" for="defaultGroupExample26">Временное</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="rlfunc('WORKAROUND')" class="custom-control-input"
+                       id="defaultGroupExample27"
+                       name="rl">
+                <label class="custom-control-label" for="defaultGroupExample27">Рекомендации</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="rlfunc('UNAVAILABLE')" class="custom-control-input"
+                       id="defaultGroupExample28"
+                       name="rl">
+                <label class="custom-control-label" for="defaultGroupExample28">Недоступно</label>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            <h3>Степень достоверности источника<span class="badge badge-secondary">RC</span></h3>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="rcfunc('NOT_DEFINED')" class="custom-control-input"
+                       id="defaultGroupExample29"
+                       name="rc">
+                <label class="custom-control-label" for="defaultGroupExample29">Не определено</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="rcfunc('UNCONFIRMED')" class="custom-control-input"
+                       id="defaultGroupExample30"
+                       name="rc">
+                <label class="custom-control-label" for="defaultGroupExample30">Не подтверждена</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="rcfunc('UNCORROBORATED')" class="custom-control-input"
+                       id="defaultGroupExample31"
+                       name="rc">
+                <label class="custom-control-label" for="defaultGroupExample31">Не доказана</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+                <input type="radio" onclick="rcfunc('CONFIRMED')" class="custom-control-input"
+                       id="defaultGroupExample32"
+                       name="rc">
+                <label class="custom-control-label" for="defaultGroupExample32">Подтверждена</label>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-auto" id="insert">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            <h3>Отправить<span class="badge badge-secondary" id="result"></span></h3>
+            <button type="button" class="btn btn-secondary" onclick="send()">Отправить</button>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
